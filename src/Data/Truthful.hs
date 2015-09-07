@@ -6,8 +6,13 @@ import Data.Either (isRight)
 class Truthful a where
     isTruthful :: a -> Bool
     isTruthful = not . notTruthful
+    {-# INLINE isTruthful #-}
+
     notTruthful :: a -> Bool
     notTruthful = not . isTruthful
+    {-# INLINE notTruthful #-}
+
+    {-# MINIMAL isTruthful | notTruthful #-}
 
 instance Truthful Bool where isTruthful = id
 instance Truthful [a] where notTruthful = null
